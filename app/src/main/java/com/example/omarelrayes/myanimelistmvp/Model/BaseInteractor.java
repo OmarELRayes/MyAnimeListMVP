@@ -1,11 +1,11 @@
 package com.example.omarelrayes.myanimelistmvp.Model;
 
-import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface BaseInteractor {
 
-    MutableLiveData<ArrayList<Anime>> getData();
+    LiveData<List<Anime>> getData();
 
 }

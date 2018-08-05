@@ -1,16 +1,17 @@
 package com.example.omarelrayes.myanimelistmvp.Model;
 
-import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.LiveData;
 
 import com.example.omarelrayes.myanimelistmvp.Model.Api.ApiInteractor;
 import com.example.omarelrayes.myanimelistmvp.Model.Local.DatabaseInteractor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DataRepository {
     private static DataRepository repository;
     private ApiInteractor remoteInteractor;
     private DatabaseInteractor localInteractor;
+    private LiveData<List<Anime>> list;
 
     private DataRepository(ApiInteractor remoteInteractor, DatabaseInteractor localInteractor) {
         this.remoteInteractor = remoteInteractor;
@@ -23,17 +24,18 @@ public class DataRepository {
         return repository;
     }
 
-    public MutableLiveData<ArrayList<Anime>> getData(boolean isNetworkAvailable){
-        if(isNetworkAvailable)
+    public LiveData<List<Anime>> getData(boolean isNetworkAvailable) {
+        if (isNetworkAvailable) {
             return remoteInteractor.getData();
-        //todo save data in database
+        }
         else
             return localInteractor.getData();
     }
 
-    public void cashData(ArrayList<Anime> animeList){
-        // todo
+    public void cashData(List<Anime> animeList) {
+        //NOTE : Clear DB excutes after cashing , should we use a workmanger ?
+
+        //localInteractor.clearDatabase();
+        localInteractor.cashData(animeList);
     }
-
-
 }

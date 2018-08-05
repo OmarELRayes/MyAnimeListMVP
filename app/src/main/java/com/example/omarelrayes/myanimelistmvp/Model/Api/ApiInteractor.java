@@ -1,11 +1,12 @@
 package com.example.omarelrayes.myanimelistmvp.Model.Api;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
+
 import com.example.omarelrayes.myanimelistmvp.Model.Anime;
 import com.example.omarelrayes.myanimelistmvp.Model.BaseInteractor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,9 +18,9 @@ public class ApiInteractor implements BaseInteractor{
     ApiInterface apiInterface;
 
     @Override
-    public MutableLiveData<ArrayList<Anime>> getData(){
+    public LiveData<List<Anime>> getData() {
 
-        final MutableLiveData<ArrayList<Anime>> animeList = new MutableLiveData<>();
+        final MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ApiResponse> call = apiInterface.getTopAnimeList();
         call.enqueue(new Callback<ApiResponse>() {

@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 import com.example.omarelrayes.myanimelistmvp.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Anime> list;
+    List<Anime> list;
 
 
-    public AnimeAdapter(Context context, ArrayList<Anime> list) {
+    public AnimeAdapter(Context context, List<Anime> list) {
         this.context = context;
         this.list = list;
     }
