@@ -10,7 +10,7 @@ import com.example.omarelrayes.myanimelistmvp.Model.Anime;
 @Database(entities = {Anime.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public static AppDatabase INSTANCE;
+    private static AppDatabase INSTANCE;
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null)

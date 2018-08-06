@@ -2,17 +2,15 @@ package com.example.omarelrayes.myanimelistmvp.Model.Api;
 
 import com.example.omarelrayes.myanimelistmvp.Model.Anime;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ApiResponse {
 
-    private ArrayList<Anime> top;
+    private List<Anime> top;
 
-    public ArrayList<Anime> getTop() {
+    public List<Anime> getTop() {
         return top;
     }
 
-    public void setTop(ArrayList<Anime> top) {
-        this.top = top;
-    }
+
 }

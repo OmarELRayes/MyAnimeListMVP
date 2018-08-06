@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class DatabaseInteractor implements BaseInteractor {
 
-    AppDatabase database;
+    private AppDatabase database;
     Context context;
     AnimeDAO dao;
 

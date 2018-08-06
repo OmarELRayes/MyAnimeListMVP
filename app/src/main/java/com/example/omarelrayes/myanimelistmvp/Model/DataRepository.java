@@ -1,6 +1,7 @@
 package com.example.omarelrayes.myanimelistmvp.Model;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 
 import com.example.omarelrayes.myanimelistmvp.Model.Api.ApiInteractor;
 import com.example.omarelrayes.myanimelistmvp.Model.Local.DatabaseInteractor;
@@ -13,14 +14,17 @@ public class DataRepository {
     private DatabaseInteractor localInteractor;
     private LiveData<List<Anime>> list;
 
-    private DataRepository(ApiInteractor remoteInteractor, DatabaseInteractor localInteractor) {
-        this.remoteInteractor = remoteInteractor;
-        this.localInteractor = localInteractor;
+    private DataRepository(Context context) {
+        this.remoteInteractor = new ApiInteractor();
+        this.localInteractor = new DatabaseInteractor(context);
     }
 
-    public static DataRepository getInstance(ApiInteractor remoteInteractor, DatabaseInteractor localInteractor) {
-        if(repository == null)
-            repository = new DataRepository(remoteInteractor,localInteractor);
+    public static DataRepository getInstance(Context context) {
+        if (repository == null) {
+
+            repository = new DataRepository(context);
+
+        }
         return repository;
     }
 

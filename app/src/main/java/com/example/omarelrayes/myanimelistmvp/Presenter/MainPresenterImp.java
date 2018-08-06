@@ -8,28 +8,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.omarelrayes.myanimelistmvp.Model.Anime;
-import com.example.omarelrayes.myanimelistmvp.Model.Api.ApiInteractor;
 import com.example.omarelrayes.myanimelistmvp.Model.DataRepository;
-import com.example.omarelrayes.myanimelistmvp.Model.Local.DatabaseInteractor;
 import com.example.omarelrayes.myanimelistmvp.View.MainView;
 
 import java.util.List;
 
 public class MainPresenterImp implements MainPresenter, LifecycleOwner {
 
-    DataRepository repository;
-    ApiInteractor remoteInteractor;
-    DatabaseInteractor localInteractor;
-    Lifecycle lifecycle;
-    MainView view;
-    Context context;
+    private DataRepository repository;
+    private Lifecycle lifecycle;
+    private MainView view;
 
     public MainPresenterImp(Lifecycle lifecycle, MainView view, Context context) {
         this.lifecycle = lifecycle;
         this.view = view;
-        remoteInteractor = new ApiInteractor();
-        localInteractor = new DatabaseInteractor(context);
-        this.repository = DataRepository.getInstance(remoteInteractor,localInteractor);
+        this.repository = DataRepository.getInstance(context);
     }
 
     @Override
