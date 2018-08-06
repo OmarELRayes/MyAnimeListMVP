@@ -1,12 +1,10 @@
 package com.example.omarelrayes.myanimelistmvp.Model.Api;
 
-import com.google.gson.GsonBuilder;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class ApiClient {
 
@@ -21,7 +19,8 @@ public class ApiClient {
             retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.jikan.moe")
                     .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+                    .addConverterFactory(MoshiConverterFactory.create())
+                    //.addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
                     .build();
         }
         return retrofit;

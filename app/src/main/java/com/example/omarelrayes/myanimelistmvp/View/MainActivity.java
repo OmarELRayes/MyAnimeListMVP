@@ -1,5 +1,6 @@
 package com.example.omarelrayes.myanimelistmvp.View;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.example.omarelrayes.myanimelistmvp.MainViewModel;
 import com.example.omarelrayes.myanimelistmvp.Model.Anime;
 import com.example.omarelrayes.myanimelistmvp.Model.AnimeAdapter;
 import com.example.omarelrayes.myanimelistmvp.Presenter.MainPresenter;
@@ -25,18 +27,27 @@ public class MainActivity extends AppCompatActivity implements MainView {
     AnimeAdapter adapter;
     LinearLayoutManager layoutManager;
     ArrayList<Anime> animeList;
+    MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new MainPresenterImp(getLifecycle(), this, getApplicationContext());
         setContentView(R.layout.activity_main);
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        if (viewModel.getPresenter() != null) {
+            presenter = new MainPresenterImp(getLifecycle(), this, getApplicationContext());
+            viewModel.setPresenter(presenter);
+        }
+
+        //presenter = new MainPresenterImp(getLifecycle(), this, getApplicationContext());
         animeList = new ArrayList<>();
         recyclerView = findViewById(R.id.recylcerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new AnimeAdapter(this,animeList);
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override
