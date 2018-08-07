@@ -1,4 +1,4 @@
-package com.example.omarelrayes.myanimelistmvp.Model.Local;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Local;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.omarelrayes.myanimelistmvp.Model.Anime;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Anime;
 
 import java.util.List;
 

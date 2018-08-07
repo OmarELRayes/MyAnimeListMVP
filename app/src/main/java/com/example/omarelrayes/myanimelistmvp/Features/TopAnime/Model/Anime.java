@@ -1,4 +1,4 @@
-package com.example.omarelrayes.myanimelistmvp.Model;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

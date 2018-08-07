@@ -1,11 +1,13 @@
-package com.example.omarelrayes.myanimelistmvp.Model.Api;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Api;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.example.omarelrayes.myanimelistmvp.Model.Anime;
-import com.example.omarelrayes.myanimelistmvp.Model.BaseInteractor;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Anime;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.BaseInteractor;
+import com.example.omarelrayes.myanimelistmvp.Retrofit.ApiClient;
+import com.example.omarelrayes.myanimelistmvp.Retrofit.ApiInterface;
 
 import java.util.List;
 
@@ -22,16 +24,16 @@ public class ApiInteractor implements BaseInteractor{
 
         final MutableLiveData<List<Anime>> animeList = new MutableLiveData<>();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ApiResponse> call = apiInterface.getTopAnimeList();
-        call.enqueue(new Callback<ApiResponse>() {
+        Call<TopAnimeResponse> call = apiInterface.getTopAnimeList();
+        call.enqueue(new Callback<TopAnimeResponse>() {
             @Override
-            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+            public void onResponse(Call<TopAnimeResponse> call, Response<TopAnimeResponse> response) {
                 Log.d("ApiInteractor", "onResponse: Request Successful");
                 animeList.setValue(response.body().getTop());
             }
 
             @Override
-            public void onFailure(Call<ApiResponse> call, Throwable t) {
+            public void onFailure(Call<TopAnimeResponse> call, Throwable t) {
                 Log.d("ApiInteractor", "onFailure: " + t.getMessage());
             }
         });
