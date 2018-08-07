@@ -1,10 +1,10 @@
-package com.example.omarelrayes.myanimelistmvp.Model.Local;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Local;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
-import com.example.omarelrayes.myanimelistmvp.Model.Anime;
-import com.example.omarelrayes.myanimelistmvp.Model.BaseInteractor;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Anime;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.BaseInteractor;
 
 import java.util.List;
 import java.util.concurrent.Executor;

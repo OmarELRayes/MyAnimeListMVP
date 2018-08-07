@@ -1,4 +1,4 @@
-package com.example.omarelrayes.myanimelistmvp.Model;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -36,12 +36,16 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
         Anime item = list.get(position);
         holder.title.setText(item.getTitle());
         //todo use glide to load image + search about cashing
-
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void updateItems(List<Anime> items) {
+        this.list = items;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

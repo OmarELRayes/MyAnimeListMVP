@@ -1,4 +1,4 @@
-package com.example.omarelrayes.myanimelistmvp.Model.Api;
+package com.example.omarelrayes.myanimelistmvp.Retrofit;
 
 import java.util.concurrent.TimeUnit;
 

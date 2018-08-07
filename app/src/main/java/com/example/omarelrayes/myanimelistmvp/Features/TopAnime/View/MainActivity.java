@@ -1,20 +1,22 @@
-package com.example.omarelrayes.myanimelistmvp.View;
+package com.example.omarelrayes.myanimelistmvp.Features.TopAnime.View;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.example.omarelrayes.myanimelistmvp.MainViewModel;
-import com.example.omarelrayes.myanimelistmvp.Model.Anime;
-import com.example.omarelrayes.myanimelistmvp.Model.AnimeAdapter;
-import com.example.omarelrayes.myanimelistmvp.Presenter.MainPresenter;
-import com.example.omarelrayes.myanimelistmvp.Presenter.MainPresenterImp;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.MainViewModel;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.Anime;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Model.AnimeAdapter;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Presenter.MainPresenter;
+import com.example.omarelrayes.myanimelistmvp.Features.TopAnime.Presenter.MainPresenterImp;
 import com.example.omarelrayes.myanimelistmvp.R;
 
 import java.util.ArrayList;
@@ -22,11 +24,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    MainPresenter presenter;
+    MainPresenter presenter = new MainPresenterImp(this, getApplicationContext());
     RecyclerView recyclerView;
     AnimeAdapter adapter;
     LinearLayoutManager layoutManager;
-    ArrayList<Anime> animeList;
     MainViewModel viewModel;
 
     @Override
@@ -34,26 +35,26 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initRecyclerView();
+
+        presenter = new MainPresenterImp(this, getApplicationContext());
+
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        if (viewModel.getPresenter() != null) {
-            presenter = new MainPresenterImp(getLifecycle(), this, getApplicationContext());
-            viewModel.setPresenter(presenter);
-        }
-
-        //presenter = new MainPresenterImp(getLifecycle(), this, getApplicationContext());
-        animeList = new ArrayList<>();
-        recyclerView = findViewById(R.id.recylcerView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new AnimeAdapter(this,animeList);
-        recyclerView.setAdapter(adapter);
-
+        viewModel.init(presenter);
+        viewModel.getAnimeList().observe(this, new Observer<List<Anime>>() {
+            @Override
+            public void onChanged(@Nullable List<Anime> animes) {
+                adapter.updateItems(animes);
+            }
+        });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onResume();
+    private void initRecyclerView() {
+        recyclerView = findViewById(R.id.main_recylcer);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new AnimeAdapter(this, new ArrayList<Anime>());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -64,13 +65,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void hideProgress() {
 
-    }
-
-    @Override
-    public void updateList(List<Anime> animeList) {
-        this.animeList.clear();
-        this.animeList.addAll(animeList);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
